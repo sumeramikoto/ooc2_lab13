@@ -20,6 +20,35 @@ public class MenuDisplays {
         System.out.println("\t\t5. The departure time is the moment that your plane pushes back from the gate, not the time it takes off. The arrival time is the moment that your plane pulls into the gate, not the time\n\t\t   it touches down on the runway...\n");
     }
 
+    static void display2ndLayerMenu(String username) {
+        System.out.printf("\n\n%-60s+++++++++ 2nd Layer Menu +++++++++%50sLogged in as \"%s\"\n", "",
+                "", username);
+        System.out.printf("%-30s (a) Enter 1 to add new Passenger....\n", "");
+        System.out.printf("%-30s (b) Enter 2 to search a Passenger....\n", "");
+        System.out.printf("%-30s (c) Enter 3 to update the Data of the Passenger....\n", "");
+        System.out.printf("%-30s (d) Enter 4 to delete a Passenger....\n", "");
+        System.out.printf("%-30s (e) Enter 5 to Display all Passengers....\n", "");
+        System.out.printf("%-30s (f) Enter 6 to Display all flights registered by a Passenger...\n",
+                "");
+        System.out.printf("%-30s (g) Enter 7 to Display all registered Passengers in a Flight....\n",
+                "");
+        System.out.printf("%-30s (h) Enter 8 to Delete a Flight....\n", "");
+        System.out.printf("%-30s (i) Enter 0 to Go back to the Main Menu/Logout....\n", "");
+    }
+
+    static void display3rdLayerMenu(String username) {
+        System.out.printf("\n\n%-60s+++++++++ 3rd Layer Menu +++++++++%50sLogged in as \"%s\"\n", "",
+                "", username);
+        System.out.printf("%-40s (a) Enter 1 to Book a flight....\n", "");
+        System.out.printf("%-40s (b) Enter 2 to update your Data....\n", "");
+        System.out.printf("%-40s (c) Enter 3 to delete your account....\n", "");
+        System.out.printf("%-40s (d) Enter 4 to Display Flight Schedule....\n", "");
+        System.out.printf("%-40s (e) Enter 5 to Cancel a Flight....\n", "");
+        System.out.printf("%-40s (f) Enter 6 to Display all flights registered by \"%s\"....\n", "",
+                username);
+        System.out.printf("%-40s (g) Enter 0 to Go back to the Main Menu/Logout....\n", "");
+    }
+
     static void displayAdminManual() {
         System.out.println(
                 "\n\n(1) Admin have the access to all users data...Admin can delete, update, add and can perform search for any customer...\n");

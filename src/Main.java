@@ -4,23 +4,11 @@
  *
  */
 
+import java.awt.*;
 import java.util.Scanner;
 
 public class Main {
-
-    // ************************************************************ Fields
-    // ************************************************************
-
-    /*
-     * 2D Array to store admin credentials. Default credentials are stored on [0][0]
-     * index. Max num of admins can be 10....
-     */
     static String[][] adminUserNameAndPassword = new String[10][2];
-//    private static List<Customer> customersCollection = new ArrayList<>();
-
-    // ************************************************************
-    // Behaviours/Methods
-    // ************************************************************
 
     public static void main(String[] args) {
         int countNumOfUsers = 1;
@@ -36,7 +24,7 @@ public class Main {
                 "\n\t\t\t\t\t+++++++++++++ Welcome to BAV AirLines +++++++++++++\n\nTo Further Proceed, Please enter a value.");
         System.out.println(
                 "\n***** Default Username && Password is root-root ***** Using Default Credentials will restrict you to just view the list of Passengers....\n");
-        displayMainMenu();
+        MenuDisplays.displayMainMenu();
         int desiredOption = read.nextInt();
         while (desiredOption < 0 || desiredOption > 8) {
             System.out.print("ERROR!! Please enter value between 0 - 4. Enter the value again :\t");
@@ -45,14 +33,7 @@ public class Main {
 
         do {
             Scanner read1 = new Scanner(System.in);
-            /*
-             * If desiredOption is 1 then call the login method.... if default credentials
-             * are used then set the permission
-             * level to standard/default where the user can just view the customer's
-             * data...if not found, then return -1, and if
-             * data is found then show the user display menu for adding, updating, deleting
-             * and searching users/customers...
-             */
+
             if (desiredOption == 1) {
 
                 /* Default username and password.... */
@@ -86,19 +67,7 @@ public class Main {
                      * Reading(Searching) and deleting a customer....
                      */
                     do {
-                        System.out.printf("\n\n%-60s+++++++++ 2nd Layer Menu +++++++++%50sLogged in as \"%s\"\n", "",
-                                "", username);
-                        System.out.printf("%-30s (a) Enter 1 to add new Passenger....\n", "");
-                        System.out.printf("%-30s (b) Enter 2 to search a Passenger....\n", "");
-                        System.out.printf("%-30s (c) Enter 3 to update the Data of the Passenger....\n", "");
-                        System.out.printf("%-30s (d) Enter 4 to delete a Passenger....\n", "");
-                        System.out.printf("%-30s (e) Enter 5 to Display all Passengers....\n", "");
-                        System.out.printf("%-30s (f) Enter 6 to Display all flights registered by a Passenger...\n",
-                                "");
-                        System.out.printf("%-30s (g) Enter 7 to Display all registered Passengers in a Flight....\n",
-                                "");
-                        System.out.printf("%-30s (h) Enter 8 to Delete a Flight....\n", "");
-                        System.out.printf("%-30s (i) Enter 0 to Go back to the Main Menu/Logout....\n", "");
+                        MenuDisplays.display2ndLayerMenu(username);
                         System.out.print("Enter the desired Choice :   ");
                         desiredOption = read.nextInt();
                         /* If 1 is entered by the privileged user, then add a new customer...... */
@@ -226,20 +195,10 @@ public class Main {
                             "\n\n%-20sLogged in Successfully as \"%s\"..... For further Proceedings, enter a value from below....",
                             "", userName);
                     do {
-                        System.out.printf("\n\n%-60s+++++++++ 3rd Layer Menu +++++++++%50sLogged in as \"%s\"\n", "",
-                                "", userName);
-                        System.out.printf("%-40s (a) Enter 1 to Book a flight....\n", "");
-                        System.out.printf("%-40s (b) Enter 2 to update your Data....\n", "");
-                        System.out.printf("%-40s (c) Enter 3 to delete your account....\n", "");
-                        System.out.printf("%-40s (d) Enter 4 to Display Flight Schedule....\n", "");
-                        System.out.printf("%-40s (e) Enter 5 to Cancel a Flight....\n", "");
-                        System.out.printf("%-40s (f) Enter 6 to Display all flights registered by \"%s\"....\n", "",
-                                userName);
-                        System.out.printf("%-40s (g) Enter 0 to Go back to the Main Menu/Logout....\n", "");
+                        MenuDisplays.display3rdLayerMenu(userName);
                         System.out.print("Enter the desired Choice :   ");
                         desiredChoice = read.nextInt();
                         if (desiredChoice == 1) {
-                            // bookingAndReserving.displayArtWork(1);
                             f1.displayFlightSchedule();
                             System.out.print("\nEnter the desired flight number to book :\t ");
                             String flightToBeBooked = read1.nextLine();
@@ -252,7 +211,6 @@ public class Main {
                             }
                             bookingAndReserving.bookFlight(flightToBeBooked, numOfTickets, result[1]);
                         } else if (desiredChoice == 2) {
-
                             c1.editUserInfo(result[1]);
                         } else if (desiredChoice == 3) {
                             System.out.print(
@@ -266,17 +224,13 @@ public class Main {
                                 System.out.println("Action has been cancelled...");
                             }
                         } else if (desiredChoice == 4) {
-
                             f1.displayFlightSchedule();
-                            f1.displayMeasurementInstructions();
+                            MenuDisplays.displayMeasurementInstructions();
                         } else if (desiredChoice == 5) {
-
                             bookingAndReserving.cancelFlight(result[1]);
                         } else if (desiredChoice == 6) {
-
                             bookingAndReserving.displayFlightsRegisteredByOneUser(result[1]);
                         } else {
-
                             if (desiredChoice != 0) {
                                 System.out.println(
                                         "Invalid Choice...Looks like you're Robot...Entering values randomly...You've Have to login again...");
@@ -296,7 +250,7 @@ public class Main {
                 manualInstructions();
             }
 
-            displayMainMenu();
+            MenuDisplays.displayMainMenu();
             desiredOption = read1.nextInt();
             while (desiredOption < 0 || desiredOption > 5) {
                 System.out.print("ERROR!! Please enter value between 0 - 5. Enter the value again :\t");
@@ -306,15 +260,7 @@ public class Main {
 
     }
 
-    static void displayMainMenu() {
-        System.out.println("\n\n\t\t(a) Press 0 to Exit.");
-        System.out.println("\t\t(b) Press 1 to Login as admin.");
-        System.out.println("\t\t(c) Press 2 to Register as admin.");
-        System.out.println("\t\t(d) Press 3 to Login as Passenger.");
-        System.out.println("\t\t(e) Press 4 to Register as Passenger.");
-        System.out.println("\t\t(f) Press 5 to Display the User Manual.");
-        System.out.print("\t\tEnter the desired option:    ");
-    }
+
 
     static void manualInstructions() {
         Scanner read = new Scanner(System.in);
@@ -329,55 +275,11 @@ public class Main {
             choice = read.nextInt();
         }
         if (choice == 1) {
-            displayAdminManual();
+            MenuDisplays.displayAdminManual();
         } else {
-            displayUserManual();
+            MenuDisplays.displayUserManual();
         }
     }
 
-    private static void displayAdminManual() {
-        System.out.println(
-                "\n\n(1) Admin have the access to all users data...Admin can delete, update, add and can perform search for any customer...\n");
-        System.out.println(
-                "(2) In order to access the admin module, you've to get yourself register by pressing 2, when the main menu gets displayed...\n");
-        System.out.println(
-                "(3) Provide the required details i.e., name, email, id...Once you've registered yourself, press 1 to login as an admin... \n");
-        System.out.println(
-                "(4) Once you've logged in, 2nd layer menu will be displayed on the screen...From here on, you can select from variety of options...\n");
-        System.out.println(
-                "(5) Pressing \"1\" will add a new Passenger, provide the program with required details to add the passenger...\n");
-        System.out.println(
-                "(6) Pressing \"2\" will search for any passenger, given the admin(you) provides the ID from the table printing above....  \n");
-        System.out.println(
-                "(7) Pressing \"3\" will let you update any passengers data given the user ID provided to program...\n");
-        System.out.println("(8) Pressing \"4\" will let you delete any passenger given its ID provided...\n");
-        System.out.println("(9) Pressing \"5\" will let you display all registered passenger...\n");
-        System.out.println(
-                "(10) Pressing \"6\" will let you display all registered passengers...After selecting, program will ask, if you want to display passengers for all flights(Y/y) or a specific flight(N/n)\n");
-        System.out.println(
-                "(11) Pressing \"7\" will let you delete any flight given its flight number provided...\n");
-        System.out.println(
-                "(11) Pressing \"0\" will make you logged out of the program...You can login again any time you want during the program execution....\n");
-    }
 
-    private static void displayUserManual() {
-        System.out.println(
-                "\n\n(1) Local user has the access to its data only...He/She won't be able to change/update other users data...\n");
-        System.out.println(
-                "(2) In order to access local users benefits, you've to get yourself register by pressing 4, when the main menu gets displayed...\n");
-        System.out.println(
-                "(3) Provide the details asked by the program to add you to the users list...Once you've registered yourself, press \"3\" to login as a passenger...\n");
-        System.out.println(
-                "(4) Once you've logged in, 3rd layer menu will be displayed...From here on, you embarked on the journey to fly with us...\n");
-        System.out.println(
-                "(5) Pressing \"1\" will display available/scheduled list of flights...To get yourself booked for a flight, enter the flight number and number of tickets for the flight...Max num of tickets at a time is 10 ...\n");
-        System.out.println(
-                "(7) Pressing \"2\" will let you update your own data...You won't be able to update other's data... \n");
-        System.out.println("(8) Pressing \"3\" will delete your account... \n");
-        System.out.println("(9) Pressing \"4\" will display randomly designed flight schedule for this runtime...\n");
-        System.out.println("(10) Pressing \"5\" will let you cancel any flight registered by you...\n");
-        System.out.println("(11) Pressing \"6\" will display all flights registered by you...\n");
-        System.out.println(
-                "(12) Pressing \"0\" will make you logout of the program...You can login back at anytime with your credentials...for this particular run-time... \n");
-    }
 }
