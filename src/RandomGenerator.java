@@ -1,10 +1,21 @@
 import java.util.Random;
 
 public class RandomGenerator {
+    private final int CITY_INDEX = 0;
+    private final int LATITUDE_INDEX = 1;
+    private final int LONGITUDE_INDEX = 2;
 
-    //        ************************************************************ Fields ************************************************************
+    private final int FROM_CITY_INDEX = 0;
+    private final int TO_CITY_INDEX = 1;
 
     private String randomNum;
+
+    final int MAX_SEATS = 500;
+    final int MIN_SEATS = 75;
+    final int ALPHABET_LENGTH = 26;
+    final int MAX_ID = 1000000;
+    final int MIN_ID = 20000 ;
+
     /*  City name is at the 0-index, its latitude is on the 1-index and longitude on the 2-index*/
     private static final String[][] destinations = {
             {"Karachi", "24.871940", "66.988060"}, {"Bangkok", "13.921430", "100.595337"}, {"Jakarta", "-6.174760", "106.827072"},
@@ -30,10 +41,10 @@ public class RandomGenerator {
     /* Generates Random ID for the Customers....*/
     public void randomIDGen() {
         Random rand = new Random();
-        String randomID = Integer.toString(rand.nextInt(1000000));
+        String randomID = Integer.toString(rand.nextInt(MAX_ID));
 
-        while (Integer.parseInt(randomID) < 20000) {
-            randomID = Integer.toString(rand.nextInt(1000000));
+        while (Integer.parseInt(randomID) < MIN_ID) {
+            randomID = Integer.toString(rand.nextInt(MAX_ID));
         }
         setRandomNum(randomID);
     }
@@ -43,31 +54,31 @@ public class RandomGenerator {
         Random rand = new Random();
         int randomCity1 = rand.nextInt(destinations.length);
         int randomCity2 = rand.nextInt(destinations.length);
-        String fromWhichCity = destinations[randomCity1][0];
-        String fromWhichCityLat = destinations[randomCity1][1];
-        String fromWhichCityLong = destinations[randomCity1][2];
+        String fromWhichCity = destinations[randomCity1][CITY_INDEX];
+        String fromWhichCityLat = destinations[randomCity1][LATITUDE_INDEX];
+        String fromWhichCityLong = destinations[randomCity1][LONGITUDE_INDEX];
         while (randomCity2 == randomCity1) {
             randomCity2 = rand.nextInt(destinations.length);
         }
-        String toWhichCity = destinations[randomCity2][0];
-        String toWhichCityLat = destinations[randomCity2][1];
-        String toWhichCityLong = destinations[randomCity2][2];
+        String toWhichCity = destinations[randomCity2][CITY_INDEX];
+        String toWhichCityLat = destinations[randomCity2][LATITUDE_INDEX];
+        String toWhichCityLong = destinations[randomCity2][LONGITUDE_INDEX];
         String[][] chosenDestinations = new String[2][3];
-        chosenDestinations[0][0] = fromWhichCity;
-        chosenDestinations[0][1] = fromWhichCityLat;
-        chosenDestinations[0][2] = fromWhichCityLong;
-        chosenDestinations[1][0] = toWhichCity;
-        chosenDestinations[1][1] = toWhichCityLat;
-        chosenDestinations[1][2] = toWhichCityLong;
+        chosenDestinations[FROM_CITY_INDEX][CITY_INDEX] = fromWhichCity;
+        chosenDestinations[FROM_CITY_INDEX][LATITUDE_INDEX] = fromWhichCityLat;
+        chosenDestinations[FROM_CITY_INDEX][LONGITUDE_INDEX] = fromWhichCityLong;
+        chosenDestinations[TO_CITY_INDEX][CITY_INDEX] = toWhichCity;
+        chosenDestinations[TO_CITY_INDEX][LATITUDE_INDEX] = toWhichCityLat;
+        chosenDestinations[TO_CITY_INDEX][LONGITUDE_INDEX] = toWhichCityLong;
         return chosenDestinations;
     }
 
     /*Generates the Random Number of Seats for each flight*/
     public int randomNumOfSeats() {
         Random random = new Random();
-        int numOfSeats = random.nextInt(500);
-        while (numOfSeats < 75) {
-            numOfSeats = random.nextInt(500);
+        int numOfSeats = random.nextInt(MAX_SEATS);
+        while (numOfSeats < MIN_SEATS) {
+            numOfSeats = random.nextInt(MAX_SEATS);
         }
         return numOfSeats;
     }
@@ -77,7 +88,7 @@ public class RandomGenerator {
         Random random = new Random();
         StringBuilder randomAlphabets = new StringBuilder();
         for (int i = 0; i < uptoHowManyLettersRequired; i++) {
-            randomAlphabets.append((char) (random.nextInt(26) + 'a'));
+            randomAlphabets.append((char) (random.nextInt(ALPHABET_LENGTH) + 'a'));
         }
         randomAlphabets.append("-").append(randomNumOfSeats() / divisible);
         return randomAlphabets.toString();
