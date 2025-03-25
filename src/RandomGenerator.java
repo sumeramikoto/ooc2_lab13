@@ -10,11 +10,11 @@ public class RandomGenerator {
 
     private String randomNum;
 
-    final int MAX_SEATS = 500;
-    final int MIN_SEATS = 75;
-    final int ALPHABET_LENGTH = 26;
-    final int MAX_ID = 1000000;
-    final int MIN_ID = 20000 ;
+    private final int MAX_SEATS = 500;
+    private final int MIN_SEATS = 75;
+    private final int ALPHABET_LENGTH = 26;
+    private final int MAX_ID = 1000000;
+    private final int MIN_ID = 20000 ;
 
     /*  City name is at the 0-index, its latitude is on the 1-index and longitude on the 2-index*/
     private static final String[][] destinations = {
