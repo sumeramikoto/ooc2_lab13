@@ -1,6 +1,8 @@
+import java.util.List;
+
 public class RolesAndPermissions {
     //        ************************************************************ Behaviours/Methods ************************************************************
-
+    List<Customer> customerCollection = Main.getCustomersCollection();
     /**
      * Checks if the admin with specified credentials is registered or not.
      * @param username of the imaginary admin
@@ -28,7 +30,7 @@ public class RolesAndPermissions {
      */
     public String isPassengerRegistered(String email, String password) {
         String isFound = "0";
-        for (Customer c : Customer.customerCollection) {
+        for (Customer c : customerCollection) {
             if (email.equals(c.getEmail())) {
                 if (password.equals(c.getPassword())) {
                     isFound = "1-" + c.getUserID();
