@@ -9,9 +9,9 @@ public class RolesAndPermissions {
      */
     public int isPrivilegedUserOrNot(String username, String password) {
         int isFound = -1;
-        for (int i = 0; i < User.adminUserNameAndPassword.length; i++) {
-            if (username.equals(User.adminUserNameAndPassword[i][0])) {
-                if (password.equals(User.adminUserNameAndPassword[i][1])) {
+        for (int i = 0; i < Main.adminUserNameAndPassword.length; i++) {
+            if (username.equals(Main.adminUserNameAndPassword[i][0])) {
+                if (password.equals(Main.adminUserNameAndPassword[i][1])) {
                     isFound = i;
                     break;
                 }

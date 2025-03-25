@@ -13,7 +13,7 @@ public class Customer {
     private int age;
     public List<Flight> flightsRegisteredByUser;
     public List<Integer> numOfTicketsBookedByUser;
-    public static final List<Customer> customerCollection = User.getCustomersCollection();
+    public static final List<Customer> customerCollection = Main.getCustomersCollection();
 
     // ************************************************************
     // Behaviours/Methods
