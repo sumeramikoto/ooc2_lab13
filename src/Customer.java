@@ -41,10 +41,9 @@ public class Customer {
      * @param age      customer's age
      */
     Customer(String name, String email, String password, String phone, String address, int age) {
-        RandomGenerator random = new RandomGenerator();
-        random.randomIDGen();
+
         this.name = name;
-        this.userID = random.getRandomNumber();
+        this.userID = generateUserID();
         this.email = email;
         this.password = password;
         this.phone = phone;
@@ -52,6 +51,12 @@ public class Customer {
         this.age = age;
         this.flightsRegisteredByUser = new ArrayList<>();
         this.numOfTicketsBookedByUser = new ArrayList<>();
+    }
+
+    private String generateUserID() {
+        RandomGenerator random = new RandomGenerator();
+        random.randomIDGen();
+        return random.getRandomNumber();
     }
 
     /**
