@@ -18,7 +18,7 @@ public class Main {
      * index. Max num of admins can be 10....
      */
     static String[][] adminUserNameAndPassword = new String[10][2];
-    private static List<Customer> customersCollection = new ArrayList<>();
+//    private static List<Customer> customersCollection = new ArrayList<>();
 
     // ************************************************************
     // Behaviours/Methods
@@ -128,7 +128,7 @@ public class Main {
                             c1.displayCustomersData();
                             System.out.print("Enter the CustomerID to Update its Data :\t");
                             String customerID = read1.nextLine();
-                            if (customersCollection.size() > 0) {
+                            if (!CustomerRepository.customerCollection.isEmpty()) {
                                 c1.editUserInfo(customerID);
                             } else {
                                 System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", customerID);
@@ -142,7 +142,7 @@ public class Main {
                             c1.displayCustomersData();
                             System.out.print("Enter the CustomerID to Delete its Data :\t");
                             String customerID = read1.nextLine();
-                            if (customersCollection.size() > 0) {
+                            if (!CustomerRepository.customerCollection.isEmpty()) {
                                 c1.deleteUser(customerID);
                             } else {
                                 System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", customerID);
@@ -375,12 +375,5 @@ public class Main {
             System.out.println(
                     "(12) Pressing \"0\" will make you logout of the program...You can login back at anytime with your credentials...for this particular run-time... \n");
         }
-    }
-
-    // ************************************************************ Setters &
-    // Getters ************************************************************
-
-    public static List<Customer> getCustomersCollection() {
-        return customersCollection;
     }
 }
