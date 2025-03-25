@@ -31,11 +31,9 @@ public class RolesAndPermissions {
     public String isPassengerRegistered(String email, String password) {
         String isFound = "0";
         for (Customer c : customerCollection) {
-            if (email.equals(c.getEmail())) {
-                if (password.equals(c.getPassword())) {
-                    isFound = "1-" + c.getUserID();
-                    break;
-                }
+            if (email.equals(c.getEmail()) && password.equals(c.getPassword())) {
+                isFound = "1-" + c.getUserID();
+                break;
             }
         }
         return isFound;
