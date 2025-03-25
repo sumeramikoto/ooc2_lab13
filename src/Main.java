@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         int countNumOfUsers = 1;
         RolesAndPermissions r1 = new RolesAndPermissions();
-        Flight f1 = new Flight();
+        FlightRepository f1 = new FlightRepository();
         FlightReservation bookingAndReserving = new FlightReservation();
         CustomerRepository c1 = new CustomerRepository();
         f1.flightScheduler();
