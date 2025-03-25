@@ -76,7 +76,7 @@ public class User {
                     System.out.println(
                             "You've standard/default privileges to access the data... You can just view customers data..."
                                     + "Can't perform any actions on them....");
-                    c1.displayCustomersData(true);
+                    c1.displayCustomersData();
                 } else {
                     System.out.printf(
                             "%-20sLogged in Successfully as \"%s\"..... For further Proceedings, enter a value from below....",
@@ -113,7 +113,7 @@ public class User {
                              * Customer class
                              */
                             
-                            c1.displayCustomersData(false);
+                            c1.displayCustomersData();
                             System.out.print("Enter the CustomerID to Search :\t");
                             String customerID = read1.nextLine();
                             System.out.println();
@@ -125,7 +125,7 @@ public class User {
                              * arguments.....
                              */
                             
-                            c1.displayCustomersData(false);
+                            c1.displayCustomersData();
                             System.out.print("Enter the CustomerID to Update its Data :\t");
                             String customerID = read1.nextLine();
                             if (customersCollection.size() > 0) {
@@ -139,7 +139,7 @@ public class User {
                              * If 4 is entered, then ask the user to enter the customer id, and then delete
                              * that customer....
                              */
-                            c1.displayCustomersData(false);
+                            c1.displayCustomersData();
                             System.out.print("Enter the CustomerID to Delete its Data :\t");
                             String customerID = read1.nextLine();
                             if (customersCollection.size() > 0) {
@@ -149,9 +149,9 @@ public class User {
                             }
                         } else if (desiredOption == 5) {
                             /* Call the Display Method of Customer Class.... */
-                            c1.displayCustomersData(false);
+                            c1.displayCustomersData();
                         } else if (desiredOption == 6) {
-                            c1.displayCustomersData(false);
+                            c1.displayCustomersData();
                             System.out.print(
                                     "\n\nEnter the ID of the user to display all flights registered by that user...");
                             String id = read1.nextLine();

@@ -194,7 +194,7 @@ public class Customer {
      * @param showHeader to check if we want to print ascii art for the customers'
      *                   data.
      */
-    public void displayCustomersData(boolean showHeader) {
+    public void displayCustomersData() {
         displayHeader();
         Iterator<Customer> iterator = customerCollection.iterator();
         int i = 0;
