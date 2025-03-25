@@ -32,7 +32,7 @@ public class FlightReservation implements DisplayClass {
         boolean isFound = false;
         for (Flight f1 : flight.getFlightList()) {
             if (flightNo.equalsIgnoreCase(f1.getFlightNumber())) {
-                for (Customer customer : Customer.customerCollection) {
+                for (Customer customer : CustomerRepository.customerCollection) {
                     if (userID.equals(customer.getUserID())) {
                         isFound = true;
                         f1.setNoOfSeatsInTheFlight(f1.getNoOfSeats() - numOfTickets);
@@ -71,7 +71,7 @@ public class FlightReservation implements DisplayClass {
         Scanner read = new Scanner(System.in);
         int index = 0, ticketsToBeReturned;
         boolean isFound = false;
-        for (Customer customer : Customer.customerCollection) {
+        for (Customer customer : CustomerRepository.customerCollection) {
             if (userID.equals(customer.getUserID())) {
                 if (customer.getFlightsRegisteredByUser().size() != 0) {
                     System.out.printf("%50s %s Here is the list of all the Flights registered by you %s", " ", "++++++++++++++", "++++++++++++++");
@@ -162,7 +162,7 @@ public class FlightReservation implements DisplayClass {
         System.out.print("+------+-------------------------------------------+-----------+------------------+-----------------------+------------------------+---------------------------+-------------+--------+-----------------+\n");
         System.out.printf("| Num  | FLIGHT SCHEDULE\t\t\t   | FLIGHT NO |  Booked Tickets  | \tFROM ====>>       | \t====>> TO\t   | \t    ARRIVAL TIME       | FLIGHT TIME |  GATE  |  FLIGHT STATUS  |%n");
         System.out.print("+------+-------------------------------------------+-----------+------------------+-----------------------+------------------------+---------------------------+-------------+--------+-----------------+\n");
-        for (Customer customer : Customer.customerCollection) {
+        for (Customer customer : CustomerRepository.customerCollection) {
             List<Flight> f = customer.getFlightsRegisteredByUser();
             int size = customer.getFlightsRegisteredByUser().size();
             if (userID.equals(customer.getUserID())) {
