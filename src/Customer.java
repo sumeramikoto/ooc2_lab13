@@ -159,7 +159,7 @@ public class Customer {
                 c.setAddress(read.nextLine());
                 System.out.print("Enter the new age of Passenger " + name + ":\t");
                 c.setAge(read.nextInt());
-                displayCustomersData(false);
+                displayCustomersData();
                 break;
             }
         }
@@ -182,7 +182,7 @@ public class Customer {
             iterator.remove();
             System.out.printf("\n%-50sPrinting all  Customer's Data after deleting Customer with the ID %s.....!!!!\n",
                     "", ID);
-            displayCustomersData(false);
+            displayCustomersData();
         } else {
             System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", ID);
         }
@@ -190,9 +190,6 @@ public class Customer {
 
     /**
      * Shows the customers' data in formatted way.
-     * 
-     * @param showHeader to check if we want to print ascii art for the customers'
-     *                   data.
      */
     public void displayCustomersData() {
         displayHeader();
