@@ -291,7 +291,6 @@ public class Main {
                             "");
                 }
             } else if (desiredOption == 4) {
-
                 c1.addNewCustomer();
             } else if (desiredOption == 5) {
                 manualInstructions();
@@ -299,8 +298,8 @@ public class Main {
 
             displayMainMenu();
             desiredOption = read1.nextInt();
-            while (desiredOption < 0 || desiredOption > 8) {
-                System.out.print("ERROR!! Please enter value between 0 - 4. Enter the value again :\t");
+            while (desiredOption < 0 || desiredOption > 5) {
+                System.out.print("ERROR!! Please enter value between 0 - 5. Enter the value again :\t");
                 desiredOption = read1.nextInt();
             }
         } while (desiredOption != 0);
