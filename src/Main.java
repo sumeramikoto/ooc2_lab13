@@ -29,7 +29,7 @@ public class Main {
         RolesAndPermissions r1 = new RolesAndPermissions();
         Flight f1 = new Flight();
         FlightReservation bookingAndReserving = new FlightReservation();
-        Customer c1 = new Customer();
+        CustomerRepository c1 = new CustomerRepository();
         f1.flightScheduler();
         Scanner read = new Scanner(System.in);
 
