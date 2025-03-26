@@ -35,67 +35,7 @@ public class Main {
             Scanner read1 = new Scanner(System.in);
 
             if (desiredOption == 1) {
-
-                /* Default username and password.... */
-                adminUserNameAndPassword[0][0] = "root";
-                adminUserNameAndPassword[0][1] = "root";
-                
-                System.out.print("\nEnter the UserName to login to the Management System :     ");
-                String username = read1.nextLine();
-                System.out.print("Enter the Password to login to the Management System :    ");
-                String password = read1.nextLine();
-                System.out.println();
-
-                /* Checking the RolesAndPermissions...... */
-                if (r1.isPrivilegedUserOrNot(username, password) == -1) {
-                    System.out.printf(
-                            "\n%20sERROR!!! Unable to login Cannot find user with the entered credentials.... Try Creating New Credentials or get yourself register by pressing 4....\n",
-                            "");
-                } else if (r1.isPrivilegedUserOrNot(username, password) == 0) {
-                    System.out.println(
-                            "You've standard/default privileges to access the data... You can just view customers data..."
-                                    + "Can't perform any actions on them....");
-                    c1.displayCustomersData();
-                } else {
-                    System.out.printf(
-                            "%-20sLogged in Successfully as \"%s\"..... For further Proceedings, enter a value from below....",
-                            "", username);
-
-                    /*
-                     * Going to Display the CRUD operations to be performed by the privileged
-                     * user.....Which includes Creating, Updating
-                     * Reading(Searching) and deleting a customer....
-                     */
-                    do {
-                        MenuDisplays.display2ndLayerMenu(username);
-                        System.out.print("Enter the desired Choice :   ");
-                        desiredOption = read.nextInt();
-                        /* If 1 is entered by the privileged user, then add a new customer...... */
-                        if (desiredOption == 1) {
-                            c1.addNewCustomer();
-                        } else if (desiredOption == 2) {
-                            searchPassenger(c1, read1);
-                        } else if (desiredOption == 3) {
-                            updatePassenger(c1, read1);
-                        } else if (desiredOption == 4) {
-                            deletePassenger(c1, read1);
-                        } else if (desiredOption == 5) {
-                            c1.displayCustomersData();
-                        } else if (desiredOption == 6) {
-                            displayFlightsOfSinglePassenger(c1, read1, bookingAndReserving);
-                        } else if (desiredOption == 7) {
-                            displayFlightPassengers(read1, bookingAndReserving, f1);
-                        } else if (desiredOption == 8) {
-                            deleteFlight(f1, read1);
-                        } else if (desiredOption == 0) {
-                            System.out.println("Thanks for Using BAV Airlines Ticketing System...!!!");
-                        } else {
-                            System.out.println("Invalid Choice...Looks like you're Robot...Entering values randomly...You've Have to login again...");
-                            desiredOption = 0;
-                        }
-                    } while (desiredOption != 0);
-
-                }
+                adminLogin(read1, r1, c1, read, bookingAndReserving, f1);
             } else if (desiredOption == 2) {
                 /*
                  * If desiredOption is 2, then call the registration method to register a
@@ -194,6 +134,63 @@ public class Main {
             }
         } while (desiredOption != 0);
 
+    }
+
+    private static void adminLogin(Scanner read1, RolesAndPermissions r1, CustomerRepository c1, Scanner read, FlightReservation bookingAndReserving, FlightRepository f1) {
+        int desiredOption;
+        adminUserNameAndPassword[0][0] = "root";
+        adminUserNameAndPassword[0][1] = "root";
+
+        System.out.print("\nEnter the UserName to login to the Management System :     ");
+        String username = read1.nextLine();
+        System.out.print("Enter the Password to login to the Management System :    ");
+        String password = read1.nextLine();
+        System.out.println();
+
+        /* Checking the RolesAndPermissions...... */
+        if (r1.isPrivilegedUserOrNot(username, password) == -1) {
+            System.out.printf(
+                    "\n%20sERROR!!! Unable to login Cannot find user with the entered credentials.... Try Creating New Credentials or get yourself register by pressing 4....\n",
+                    "");
+        } else if (r1.isPrivilegedUserOrNot(username, password) == 0) {
+            System.out.println(
+                    "You've standard/default privileges to access the data... You can just view customers data..."
+                            + "Can't perform any actions on them....");
+            c1.displayCustomersData();
+        } else {
+            System.out.printf(
+                    "%-20sLogged in Successfully as \"%s\"..... For further Proceedings, enter a value from below....",
+                    "", username);
+            do {
+                MenuDisplays.display2ndLayerMenu(username);
+                System.out.print("Enter the desired Choice :   ");
+                desiredOption = read.nextInt();
+                /* If 1 is entered by the privileged user, then add a new customer...... */
+                if (desiredOption == 1) {
+                    c1.addNewCustomer();
+                } else if (desiredOption == 2) {
+                    searchPassenger(c1, read1);
+                } else if (desiredOption == 3) {
+                    updatePassenger(c1, read1);
+                } else if (desiredOption == 4) {
+                    deletePassenger(c1, read1);
+                } else if (desiredOption == 5) {
+                    c1.displayCustomersData();
+                } else if (desiredOption == 6) {
+                    displayFlightsOfSinglePassenger(c1, read1, bookingAndReserving);
+                } else if (desiredOption == 7) {
+                    displayFlightPassengers(read1, bookingAndReserving, f1);
+                } else if (desiredOption == 8) {
+                    deleteFlight(f1, read1);
+                } else if (desiredOption == 0) {
+                    System.out.println("Thanks for Using BAV Airlines Ticketing System...!!!");
+                } else {
+                    System.out.println("Invalid Choice...Looks like you're Robot...Entering values randomly...You've Have to login again...");
+                    desiredOption = 0;
+                }
+            } while (desiredOption != 0);
+
+        }
     }
 
     private static void deleteFlight(FlightRepository f1, Scanner read1) {
