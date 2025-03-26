@@ -73,6 +73,6 @@ public class FlightRepository {
     }
 
     public List<Flight> getFlightList() {
-        return flightList;
+        return Collections.unmodifiableList(flightList);
     }
 }
