@@ -2,7 +2,8 @@ import java.util.List;
 
 public class RolesAndPermissions {
     //        ************************************************************ Behaviours/Methods ************************************************************
-    List<Customer> customerCollection = CustomerRepository.customerCollection;
+    CustomerRepository customerRepository = new CustomerRepository();
+    List<Customer> customerCollection = customerRepository.getCustomerCollection();
     /**
      * Checks if the admin with specified credentials is registered or not.
      * @param username of the imaginary admin

@@ -13,6 +13,8 @@ public class FlightReservation implements DisplayClass {
 
     //        ************************************************************ Fields ************************************************************
     FlightRepository flightRepository = new FlightRepository();
+    CustomerRepository customerRepository = new CustomerRepository();
+
     int flightIndexInFlightList;
 
     //        ************************************************************ Behaviours/Methods ************************************************************
@@ -32,7 +34,7 @@ public class FlightReservation implements DisplayClass {
         boolean isFound = false;
         for (Flight f1 : flightRepository.getFlightList()) {
             if (flightNo.equalsIgnoreCase(f1.getFlightNumber())) {
-                for (Customer customer : CustomerRepository.customerCollection) {
+                for (Customer customer : customerRepository.getCustomerCollection()) {
                     if (userID.equals(customer.getUserID())) {
                         isFound = true;
                         f1.setNoOfSeatsInTheFlight(f1.getNoOfSeats() - numOfTickets);
@@ -48,7 +50,7 @@ public class FlightReservation implements DisplayClass {
                             customer.addNewFlightToCustomerList(f1);
                             addNumberOfTicketsForNewFlight(customer, numOfTickets);
                         }
-                    break;
+                        break;
                     }
                 }
             }
@@ -71,9 +73,9 @@ public class FlightReservation implements DisplayClass {
         Scanner read = new Scanner(System.in);
         int index = 0, ticketsToBeReturned;
         boolean isFound = false;
-        for (Customer customer : CustomerRepository.customerCollection) {
+        for (Customer customer : customerRepository.getCustomerCollection()) {
             if (userID.equals(customer.getUserID())) {
-                if (customer.getFlightsRegisteredByUser().size() != 0) {
+                if (!customer.getFlightsRegisteredByUser().isEmpty()) {
                     System.out.printf("%50s %s Here is the list of all the Flights registered by you %s", " ", "++++++++++++++", "++++++++++++++");
                     displayFlightsRegisteredByOneUser(userID);
                     System.out.print("Enter the Flight Number of the Flight you want to cancel : ");
@@ -162,7 +164,7 @@ public class FlightReservation implements DisplayClass {
         System.out.print("+------+-------------------------------------------+-----------+------------------+-----------------------+------------------------+---------------------------+-------------+--------+-----------------+\n");
         System.out.printf("| Num  | FLIGHT SCHEDULE\t\t\t   | FLIGHT NO |  Booked Tickets  | \tFROM ====>>       | \t====>> TO\t   | \t    ARRIVAL TIME       | FLIGHT TIME |  GATE  |  FLIGHT STATUS  |%n");
         System.out.print("+------+-------------------------------------------+-----------+------------------+-----------------------+------------------------+---------------------------+-------------+--------+-----------------+\n");
-        for (Customer customer : CustomerRepository.customerCollection) {
+        for (Customer customer : customerRepository.getCustomerCollection()) {
             List<Flight> f = customer.getFlightsRegisteredByUser();
             int size = customer.getFlightsRegisteredByUser().size();
             if (userID.equals(customer.getUserID())) {

@@ -4,7 +4,6 @@
  *
  */
 
-import java.awt.*;
 import java.util.Scanner;
 
 public class Main {
@@ -12,11 +11,11 @@ public class Main {
 
     public static void main(String[] args) {
         int countNumOfUsers = 1;
-        RolesAndPermissions r1 = new RolesAndPermissions();
-        FlightRepository f1 = new FlightRepository();
+        RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
+        FlightRepository flightRepository = new FlightRepository();
         FlightReservation bookingAndReserving = new FlightReservation();
-        CustomerRepository c1 = new CustomerRepository();
-        f1.flightScheduler();
+        CustomerRepository customerRepository = new CustomerRepository();
+        flightRepository.flightScheduler();
         Scanner read = new Scanner(System.in);
 
        
@@ -35,14 +34,14 @@ public class Main {
             Scanner read1 = new Scanner(System.in);
 
             if (desiredOption == 1) {
-                adminLogin(read1, r1, c1, read, bookingAndReserving, f1);
+                adminLogin(read1, rolesAndPermissions, customerRepository, read, bookingAndReserving, flightRepository);
             } else if (desiredOption == 2) {
-                registerAdmin(read1, r1, countNumOfUsers);
+                registerAdmin(read1, rolesAndPermissions, countNumOfUsers);
                 countNumOfUsers++;
             } else if (desiredOption == 3) {
-                userLogin(read1, r1, read, f1, bookingAndReserving, c1);
+                userLogin(read1, rolesAndPermissions, read, flightRepository, bookingAndReserving, customerRepository);
             } else if (desiredOption == 4) {
-                c1.addNewCustomer();
+                customerRepository.addNewCustomer();
             } else if (desiredOption == 5) {
                 manualInstructions();
             }
@@ -241,7 +240,7 @@ public class Main {
         c1.displayCustomersData();
         System.out.print("Enter the CustomerID to Delete its Data :\t");
         String customerID = read1.nextLine();
-        if (!CustomerRepository.customerCollection.isEmpty()) {
+        if (!c1.getCustomerCollection().isEmpty()) {
             c1.deleteUser(customerID);
         } else {
             System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", customerID);
@@ -252,7 +251,7 @@ public class Main {
         c1.displayCustomersData();
         System.out.print("Enter the CustomerID to Update its Data :\t");
         String customerID = read1.nextLine();
-        if (!CustomerRepository.customerCollection.isEmpty()) {
+        if (!c1.getCustomerCollection().isEmpty()) {
             c1.editUserInfo(customerID);
         } else {
             System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", customerID);
@@ -266,7 +265,6 @@ public class Main {
         System.out.println();
         c1.searchUser(customerID);
     }
-
 
     static void manualInstructions() {
         Scanner read = new Scanner(System.in);
@@ -286,6 +284,4 @@ public class Main {
             MenuDisplays.displayUserManual();
         }
     }
-
-
 }
