@@ -37,26 +37,7 @@ public class Main {
             if (desiredOption == 1) {
                 adminLogin(read1, r1, c1, read, bookingAndReserving, f1);
             } else if (desiredOption == 2) {
-                /*
-                 * If desiredOption is 2, then call the registration method to register a
-                 * user......
-                 */
-                System.out.print("\nEnter the UserName to Register :    ");
-                String username = read1.nextLine();
-                System.out.print("Enter the Password to Register :     ");
-                String password = read1.nextLine();
-                while (r1.isPrivilegedUserOrNot(username, password) != -1) {
-                    System.out.print("ERROR!!! Admin with same UserName already exist. Enter new UserName:   ");
-                    username = read1.nextLine();
-                    System.out.print("Enter the Password Again:   ");
-                    password = read1.nextLine();
-                }
-
-                /* Setting the credentials entered by the user..... */
-                adminUserNameAndPassword[countNumOfUsers][0] = username;
-                adminUserNameAndPassword[countNumOfUsers][1] = password;
-
-                /* Incrementing the numOfUsers */
+                registerAdmin(read1, r1, countNumOfUsers);
                 countNumOfUsers++;
             } else if (desiredOption == 3) {
                 System.out.print("\n\nEnter the Email to Login : \t");
@@ -136,6 +117,23 @@ public class Main {
 
     }
 
+    private static void registerAdmin(Scanner read1, RolesAndPermissions r1, int countNumOfUsers) {
+        System.out.print("\nEnter the UserName to Register :    ");
+        String username = read1.nextLine();
+        System.out.print("Enter the Password to Register :     ");
+        String password = read1.nextLine();
+        while (r1.isPrivilegedUserOrNot(username, password) != -1) {
+            System.out.print("ERROR!!! Admin with same UserName already exist. Enter new UserName:   ");
+            username = read1.nextLine();
+            System.out.print("Enter the Password Again:   ");
+            password = read1.nextLine();
+        }
+
+        /* Setting the credentials entered by the user..... */
+        adminUserNameAndPassword[countNumOfUsers][0] = username;
+        adminUserNameAndPassword[countNumOfUsers][1] = password;
+    }
+
     private static void adminLogin(Scanner read1, RolesAndPermissions r1, CustomerRepository c1, Scanner read, FlightReservation bookingAndReserving, FlightRepository f1) {
         int desiredOption;
         adminUserNameAndPassword[0][0] = "root";
@@ -147,7 +145,7 @@ public class Main {
         String password = read1.nextLine();
         System.out.println();
 
-       int adminIndex = r1.isPrivilegedUserOrNot(username, password);
+        int adminIndex = r1.isPrivilegedUserOrNot(username, password);
         if (adminIndex == -1) {
             System.out.printf(
                     "\n%20sERROR!!! Unable to login Cannot find user with the entered credentials.... Try Creating New Credentials or get yourself register by pressing 4....\n",
