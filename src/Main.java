@@ -40,67 +40,7 @@ public class Main {
                 registerAdmin(read1, r1, countNumOfUsers);
                 countNumOfUsers++;
             } else if (desiredOption == 3) {
-                System.out.print("\n\nEnter the Email to Login : \t");
-                String userName = read1.nextLine();
-                System.out.print("Enter the Password : \t");
-                String password = read1.nextLine();
-                String[] result = r1.isPassengerRegistered(userName, password).split("-");
-
-                if (Integer.parseInt(result[0]) == 1) {
-                    int desiredChoice;
-                    System.out.printf(
-                            "\n\n%-20sLogged in Successfully as \"%s\"..... For further Proceedings, enter a value from below....",
-                            "", userName);
-                    do {
-                        MenuDisplays.display3rdLayerMenu(userName);
-                        System.out.print("Enter the desired Choice :   ");
-                        desiredChoice = read.nextInt();
-                        if (desiredChoice == 1) {
-                            f1.displayFlightSchedule();
-                            System.out.print("\nEnter the desired flight number to book :\t ");
-                            String flightToBeBooked = read1.nextLine();
-                            System.out.print("Enter the Number of tickets for " + flightToBeBooked + " flight :   ");
-                            int numOfTickets = read.nextInt();
-                            while (numOfTickets > 10) {
-                                System.out.print(
-                                        "ERROR!! You can't book more than 10 tickets at a time for single flight....Enter number of tickets again : ");
-                                numOfTickets = read.nextInt();
-                            }
-                            bookingAndReserving.bookFlight(flightToBeBooked, numOfTickets, result[1]);
-                        } else if (desiredChoice == 2) {
-                            c1.editUserInfo(result[1]);
-                        } else if (desiredChoice == 3) {
-                            System.out.print(
-                                    "Are you sure to delete your account...It's an irreversible action...Enter Y/y to confirm...");
-                            char confirmationChar = read1.nextLine().charAt(0);
-                            if (confirmationChar == 'Y' || confirmationChar == 'y') {
-                                c1.deleteUser(result[1]);
-                                System.out.printf("User %s's account deleted Successfully...!!!", userName);
-                                desiredChoice = 0;
-                            } else {
-                                System.out.println("Action has been cancelled...");
-                            }
-                        } else if (desiredChoice == 4) {
-                            f1.displayFlightSchedule();
-                            MenuDisplays.displayMeasurementInstructions();
-                        } else if (desiredChoice == 5) {
-                            bookingAndReserving.cancelFlight(result[1]);
-                        } else if (desiredChoice == 6) {
-                            bookingAndReserving.displayFlightsRegisteredByOneUser(result[1]);
-                        } else {
-                            if (desiredChoice != 0) {
-                                System.out.println(
-                                        "Invalid Choice...Looks like you're Robot...Entering values randomly...You've Have to login again...");
-                            }
-                            desiredChoice = 0;
-                        }
-                    } while (desiredChoice != 0);
-
-                } else {
-                    System.out.printf(
-                            "\n%20sERROR!!! Unable to login Cannot find user with the entered credentials.... Try Creating New Credentials or get yourself register by pressing 4....\n",
-                            "");
-                }
+                userLogin(read1, r1, read, f1, bookingAndReserving, c1);
             } else if (desiredOption == 4) {
                 c1.addNewCustomer();
             } else if (desiredOption == 5) {
@@ -115,6 +55,79 @@ public class Main {
             }
         } while (desiredOption != 0);
 
+    }
+
+    private static void userLogin(Scanner read1, RolesAndPermissions r1, Scanner read, FlightRepository f1, FlightReservation bookingAndReserving, CustomerRepository c1) {
+        System.out.print("\n\nEnter the Email to Login : \t");
+        String userName = read1.nextLine();
+        System.out.print("Enter the Password : \t");
+        String password = read1.nextLine();
+        String[] result = r1.isPassengerRegistered(userName, password).split("-");
+
+        if (Integer.parseInt(result[0]) == 1) {
+            int desiredChoice;
+            System.out.printf(
+                    "\n\n%-20sLogged in Successfully as \"%s\"..... For further Proceedings, enter a value from below....",
+                    "", userName);
+            do {
+                MenuDisplays.display3rdLayerMenu(userName);
+                System.out.print("Enter the desired Choice :   ");
+                desiredChoice = read.nextInt();
+                if (desiredChoice == 1) {
+                    bookFlight(f1, read1, read, bookingAndReserving, result);
+                } else if (desiredChoice == 2) {
+                    c1.editUserInfo(result[1]);
+                } else if (desiredChoice == 3) {
+                    desiredChoice = deleteAccount(read1, c1, result, userName, desiredChoice);
+                } else if (desiredChoice == 4) {
+                    f1.displayFlightSchedule();
+                    MenuDisplays.displayMeasurementInstructions();
+                } else if (desiredChoice == 5) {
+                    bookingAndReserving.cancelFlight(result[1]);
+                } else if (desiredChoice == 6) {
+                    bookingAndReserving.displayFlightsRegisteredByOneUser(result[1]);
+                } else {
+                    if (desiredChoice != 0) {
+                        System.out.println(
+                                "Invalid Choice...Looks like you're Robot...Entering values randomly...You've Have to login again...");
+                    }
+                    desiredChoice = 0;
+                }
+            } while (desiredChoice != 0);
+
+        } else {
+            System.out.printf(
+                    "\n%20sERROR!!! Unable to login Cannot find user with the entered credentials.... Try Creating New Credentials or get yourself register by pressing 4....\n",
+                    "");
+        }
+    }
+
+    private static int deleteAccount(Scanner read1, CustomerRepository c1, String[] result, String userName, int desiredChoice) {
+        System.out.print(
+                "Are you sure to delete your account...It's an irreversible action...Enter Y/y to confirm...");
+        char confirmationChar = read1.nextLine().charAt(0);
+        if (confirmationChar == 'Y' || confirmationChar == 'y') {
+            c1.deleteUser(result[1]);
+            System.out.printf("User %s's account deleted Successfully...!!!", userName);
+            desiredChoice = 0;
+        } else {
+            System.out.println("Action has been cancelled...");
+        }
+        return desiredChoice;
+    }
+
+    private static void bookFlight(FlightRepository f1, Scanner read1, Scanner read, FlightReservation bookingAndReserving, String[] result) {
+        f1.displayFlightSchedule();
+        System.out.print("\nEnter the desired flight number to book :\t ");
+        String flightToBeBooked = read1.nextLine();
+        System.out.print("Enter the Number of tickets for " + flightToBeBooked + " flight :   ");
+        int numOfTickets = read.nextInt();
+        while (numOfTickets > 10) {
+            System.out.print(
+                    "ERROR!! You can't book more than 10 tickets at a time for single flight....Enter number of tickets again : ");
+            numOfTickets = read.nextInt();
+        }
+        bookingAndReserving.bookFlight(flightToBeBooked, numOfTickets, result[1]);
     }
 
     private static void registerAdmin(Scanner read1, RolesAndPermissions r1, int countNumOfUsers) {
