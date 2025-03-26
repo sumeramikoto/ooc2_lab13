@@ -1,10 +1,7 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class CustomerRepository {
-    static List<Customer> customerCollection = new ArrayList<>();
+    private List<Customer> customerCollection = new ArrayList<>();
 
     public CustomerRepository() {
     }
@@ -140,5 +137,9 @@ public class CustomerRepository {
                 "");
         System.out.println();
 
+    }
+
+    public List<Customer> getCustomerCollection() {
+        return Collections.unmodifiableList(customerCollection);
     }
 }
