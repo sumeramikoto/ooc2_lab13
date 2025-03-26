@@ -147,12 +147,12 @@ public class Main {
         String password = read1.nextLine();
         System.out.println();
 
-        /* Checking the RolesAndPermissions...... */
-        if (r1.isPrivilegedUserOrNot(username, password) == -1) {
+       int adminIndex = r1.isPrivilegedUserOrNot(username, password);
+        if (adminIndex == -1) {
             System.out.printf(
                     "\n%20sERROR!!! Unable to login Cannot find user with the entered credentials.... Try Creating New Credentials or get yourself register by pressing 4....\n",
                     "");
-        } else if (r1.isPrivilegedUserOrNot(username, password) == 0) {
+        } else if (adminIndex == 0) {
             System.out.println(
                     "You've standard/default privileges to access the data... You can just view customers data..."
                             + "Can't perform any actions on them....");
