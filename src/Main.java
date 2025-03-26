@@ -72,91 +72,27 @@ public class Main {
                         desiredOption = read.nextInt();
                         /* If 1 is entered by the privileged user, then add a new customer...... */
                         if (desiredOption == 1) {
-                           
                             c1.addNewCustomer();
                         } else if (desiredOption == 2) {
-                            /*
-                             * If 2 is entered by the privileged user, then call the search method of the
-                             * Customer class
-                             */
-                            
-                            c1.displayCustomersData();
-                            System.out.print("Enter the CustomerID to Search :\t");
-                            String customerID = read1.nextLine();
-                            System.out.println();
-                            c1.searchUser(customerID);
+                            searchPassenger(c1, read1);
                         } else if (desiredOption == 3) {
-                            /*
-                             * If 3 is entered by the user, then call the update method of the Customer
-                             * Class with required
-                             * arguments.....
-                             */
-                            
-                            c1.displayCustomersData();
-                            System.out.print("Enter the CustomerID to Update its Data :\t");
-                            String customerID = read1.nextLine();
-                            if (!CustomerRepository.customerCollection.isEmpty()) {
-                                c1.editUserInfo(customerID);
-                            } else {
-                                System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", customerID);
-                            }
-
+                            updatePassenger(c1, read1);
                         } else if (desiredOption == 4) {
-                            /*
-                             * If 4 is entered, then ask the user to enter the customer id, and then delete
-                             * that customer....
-                             */
-                            c1.displayCustomersData();
-                            System.out.print("Enter the CustomerID to Delete its Data :\t");
-                            String customerID = read1.nextLine();
-                            if (!CustomerRepository.customerCollection.isEmpty()) {
-                                c1.deleteUser(customerID);
-                            } else {
-                                System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", customerID);
-                            }
+                            deletePassenger(c1, read1);
                         } else if (desiredOption == 5) {
-                            /* Call the Display Method of Customer Class.... */
                             c1.displayCustomersData();
                         } else if (desiredOption == 6) {
-                            c1.displayCustomersData();
-                            System.out.print(
-                                    "\n\nEnter the ID of the user to display all flights registered by that user...");
-                            String id = read1.nextLine();
-                            bookingAndReserving.displayFlightsRegisteredByOneUser(id);
+                            displayFlightsOfSinglePassenger(c1, read1, bookingAndReserving);
                         } else if (desiredOption == 7) {
-                            System.out.print(
-                                    "Do you want to display Passengers of all flights or a specific flight.... 'Y/y' for displaying all flights and 'N/n' to look for a"
-                                            +
-                                            " specific flight.... ");
-                            char choice = read1.nextLine().charAt(0);
-                            if ('y' == choice || 'Y' == choice) {
-                                bookingAndReserving.displayRegisteredUsersForAllFlight();
-                            } else if ('n' == choice || 'N' == choice) {
-                                f1.displayFlightSchedule();
-                                System.out.print(
-                                        "Enter the Flight Number to display the list of passengers registered in that flight... ");
-                                String flightNum = read1.nextLine();
-                                bookingAndReserving.displayRegisteredUsersForASpecificFlight(flightNum);
-                            } else {
-                                System.out.println("Invalid Choice...No Response...!");
-                            }
+                            displayFlightPassengers(read1, bookingAndReserving, f1);
                         } else if (desiredOption == 8) {
-                            f1.displayFlightSchedule();
-                            System.out.print("Enter the Flight Number to delete the flight : ");
-                            String flightNum = read1.nextLine();
-                            f1.deleteFlight(flightNum);
-
+                            deleteFlight(f1, read1);
                         } else if (desiredOption == 0) {
-                            ;
                             System.out.println("Thanks for Using BAV Airlines Ticketing System...!!!");
-
                         } else {
-                            System.out.println(
-                                    "Invalid Choice...Looks like you're Robot...Entering values randomly...You've Have to login again...");
-
+                            System.out.println("Invalid Choice...Looks like you're Robot...Entering values randomly...You've Have to login again...");
                             desiredOption = 0;
                         }
-
                     } while (desiredOption != 0);
 
                 }
@@ -260,6 +196,68 @@ public class Main {
 
     }
 
+    private static void deleteFlight(FlightRepository f1, Scanner read1) {
+        f1.displayFlightSchedule();
+        System.out.print("Enter the Flight Number to delete the flight : ");
+        String flightNum = read1.nextLine();
+        f1.deleteFlight(flightNum);
+    }
+
+    private static void displayFlightsOfSinglePassenger(CustomerRepository c1, Scanner read1, FlightReservation bookingAndReserving) {
+        c1.displayCustomersData();
+        System.out.print("\n\nEnter the ID of the user to display all flights registered by that user...");
+        String id = read1.nextLine();
+        bookingAndReserving.displayFlightsRegisteredByOneUser(id);
+    }
+
+    private static void displayFlightPassengers(Scanner read1, FlightReservation bookingAndReserving, FlightRepository f1) {
+        System.out.print(
+                "Do you want to display Passengers of all flights or a specific flight.... 'Y/y' for displaying all flights and 'N/n' to look for a"
+                        +
+                        " specific flight.... ");
+        char choice = read1.nextLine().charAt(0);
+        if ('y' == choice || 'Y' == choice) {
+            bookingAndReserving.displayRegisteredUsersForAllFlight();
+        } else if ('n' == choice || 'N' == choice) {
+            f1.displayFlightSchedule();
+            System.out.print(
+                    "Enter the Flight Number to display the list of passengers registered in that flight... ");
+            String flightNum = read1.nextLine();
+            bookingAndReserving.displayRegisteredUsersForASpecificFlight(flightNum);
+        } else {
+            System.out.println("Invalid Choice...No Response...!");
+        }
+    }
+
+    private static void deletePassenger(CustomerRepository c1, Scanner read1) {
+        c1.displayCustomersData();
+        System.out.print("Enter the CustomerID to Delete its Data :\t");
+        String customerID = read1.nextLine();
+        if (!CustomerRepository.customerCollection.isEmpty()) {
+            c1.deleteUser(customerID);
+        } else {
+            System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", customerID);
+        }
+    }
+
+    private static void updatePassenger(CustomerRepository c1, Scanner read1) {
+        c1.displayCustomersData();
+        System.out.print("Enter the CustomerID to Update its Data :\t");
+        String customerID = read1.nextLine();
+        if (!CustomerRepository.customerCollection.isEmpty()) {
+            c1.editUserInfo(customerID);
+        } else {
+            System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", customerID);
+        }
+    }
+
+    private static void searchPassenger(CustomerRepository c1, Scanner read1) {
+        c1.displayCustomersData();
+        System.out.print("Enter the CustomerID to Search :\t");
+        String customerID = read1.nextLine();
+        System.out.println();
+        c1.searchUser(customerID);
+    }
 
 
     static void manualInstructions() {
