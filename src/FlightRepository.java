@@ -6,7 +6,7 @@ import java.util.*;
 
 public class FlightRepository {
     private static int nextFlightDay = 0;
-    static List<Flight> flightList = new ArrayList<>();
+    private static List<Flight> flightList = new ArrayList<>();
 
     public FlightRepository() {
     }

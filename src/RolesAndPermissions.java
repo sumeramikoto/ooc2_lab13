@@ -3,7 +3,6 @@ import java.util.List;
 public class RolesAndPermissions {
     //        ************************************************************ Behaviours/Methods ************************************************************
     CustomerRepository customerRepository = new CustomerRepository();
-    List<Customer> customerCollection = customerRepository.getCustomerCollection();
     /**
      * Checks if the admin with specified credentials is registered or not.
      * @param username of the imaginary admin
@@ -29,7 +28,7 @@ public class RolesAndPermissions {
      */
     public String isPassengerRegistered(String email, String password) {
         String isFound = "0";
-        for (Customer c : customerCollection) {
+        for (Customer c : customerRepository.getCustomerCollection()) {
             if (email.equals(c.getEmail()) && password.equals(c.getPassword())) {
                 isFound = "1-" + c.getUserID();
                 break;

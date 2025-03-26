@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class CustomerRepository {
-    private List<Customer> customerCollection = new ArrayList<>();
+    private static List<Customer> customerCollection = new ArrayList<>();
 
     public CustomerRepository() {
     }
